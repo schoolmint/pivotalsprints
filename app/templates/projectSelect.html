@@ -1,0 +1,15 @@
+<div class="row">
+	<div class="col-lg-12 token-form">
+		<form action="" method="POST" class="form-inline" role="form">            
+			<div class="form-group">
+				<select name="" id="input-project" class="form-control input-lg bigger">
+					<option value="">-- Select a Project --</option>
+					<% project.forEach(function(p) { %>
+						<option value="<%=p.id%>"><%=p.name%></option>
+					<% }) %>
+				</select>
+			</div>
+			<button type="button" class="btn btn-primary btn-lg" id="download-csv">Download CSV</button>
+		</form>
+	</div>
+</div>

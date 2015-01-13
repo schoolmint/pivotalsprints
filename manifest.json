@@ -1,0 +1,20 @@
+{
+  "name": "Pivotal Reports",
+  "version": "2.4",
+  "description": "Pivotal Reports",
+  "background": {
+    "persistent": false,
+    "scripts": ["background.js"]
+  },
+  "browser_action": {
+     "default_title": "Add Pivotal Story"
+  },
+  "icons":{
+    "128":"assets/img/icon-128.png",
+    "48" :"assets/img/icon-48.png",
+    "16" :"assets/img/icon-16.png"
+  },
+  "permissions": [ "activeTab", "<all_urls>", "http://*/", "https://*/", "https://www.pivotaltracker.com/services/v3/*", "https://www.pivotaltracker.com/services/v5/*", "tabs" ],
+  "manifest_version": 2,
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com; object-src 'self'"
+}
