@@ -14,6 +14,7 @@ define(function(require) {
 	var _token = null;
 	var project_id = null;
     var project_name = "";
+    var search_str = false;
 	var stories = [];
 	var columns = [];
 	var token = null;
@@ -230,7 +231,24 @@ define(function(require) {
 	    		}
 	    	});
     	}
-    	getStories(0);
+
+        function getSearch() {
+            loading.show('fetching stories - ' + search_str);
+            request("/projects/" + project_id + "/search", {
+                type: "GET",
+                data: {
+                    project_id: project_id,
+                    query: search_str
+                }
+            }).done(function(result) {
+                result = result.stories.stories;
+                flattenStories(result);
+                stories = result;
+                def.resolve();
+            });
+        }
+        if (search_str) getSearch();
+        else getStories(0);
     	promise.done(function(){
     		normalize();
     		window.stories = stories;
@@ -280,6 +298,8 @@ define(function(require) {
 		$('#main').on('click', '#download-csv', function(){
 			project_id = $('#input-project').val();
 			project_name = $("#input-project option[value='" + project_id + "']").text();
+            search_str = $("#search-str").val();
+            if (search_str == "") search_str = false;
 			if (project_id > 1) {
 				$('#download-csv').addClass('disabled');
 				fetchProject();
