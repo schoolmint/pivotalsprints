@@ -9,6 +9,7 @@ define(function(require) {
     var tmplSelect = require('text!templates/projectSelect.html');
     var tmplToken = require('text!templates/getToken.html');
     var tmplComplete = require('text!templates/complete.html');
+    var report = require('report');
 
 
 	var _token = null;
@@ -135,7 +136,7 @@ define(function(require) {
     		var description = result[i].description || '';
     		var lines = description.split(/[\n\r]+/);
     		for (var k=0; k < lines.length; k++) {
-    			var matches = lines[k].match(/^\^(.+)\:(.+)$/);
+    			var matches = lines[k].match(/^\^(.+)[\:=](.+)$/);
     			if (matches) {
     				result[i][matches[1].trim().toLowerCase()] = matches[2].trim();
     			}
@@ -252,11 +253,13 @@ define(function(require) {
     	promise.done(function(){
     		normalize();
     		window.stories = stories;
-            download($.csv.fromObjects(stories, {sortOrder: 'alpha'}), project_name + '.csv');  
-            loading.hide();	
-			$('#main').html(_.template(tmplComplete)({project: project_name}));             
+            //download($.csv.fromObjects(stories, {sortOrder: 'alpha'}), project_name + '.csv');  
+            loading.hide(); 
+            report.render(stories);
+            $('#btn-generate-report').removeClass('disabled');
     	});
     }
+
 
     function fetchProject() {
 		loadMembersAndEpics();
@@ -295,13 +298,13 @@ define(function(require) {
     function bind() {
 		$('#main').on('click', '#save-token', saveToken);
 		$('#main').on('click', '#btn-restart', getToken); 
-		$('#main').on('click', '#download-csv', function(){
+		$('#main').on('click', '#btn-generate-report', function(){
 			project_id = $('#input-project').val();
 			project_name = $("#input-project option[value='" + project_id + "']").text();
             search_str = $("#search-str").val();
             if (search_str == "") search_str = false;
 			if (project_id > 1) {
-				$('#download-csv').addClass('disabled');
+				$('#btn-generate-report').addClass('disabled');
 				fetchProject();
 			}
 		})

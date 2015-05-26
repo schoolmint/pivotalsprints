@@ -1,0 +1,21 @@
+<h1>Sprint Status: <%=status%>%</h1>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Done</th>
+			<th>Points</th>
+			<th>Count</th>
+		</tr>
+	</thead>
+	<tbody>
+	<% for (var t in team) { %>
+		<tr>
+			<td><%=t%></td>
+			<td><%=Math.ceil(team[t].done*100/team[t].total)%>%</td>
+			<td><%=team[t].total%></td>
+			<td><%=team[t].count%></td>
+		</tr>
+	<% } %>
+	</tbody>
+</table>
