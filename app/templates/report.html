@@ -12,7 +12,7 @@
 	<% for (var t in team) { %>
 		<tr>
 			<td><%=t%></td>
-			<td><%=Math.ceil(team[t].done*100/team[t].total)%>%</td>
+			<td><% if (team[t].total > 0) print(Math.ceil(team[t].done*100/team[t].total) + "%"); %></td>
 			<td><%=team[t].total%></td>
 			<td><%=team[t].count%></td>
 		</tr>
