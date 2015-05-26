@@ -307,8 +307,11 @@ define(function(require) {
 				$('#btn-generate-report').addClass('disabled');
 				fetchProject();
 			}
-		})
+		});
 		$('#clear-token').on('click', clearToken);
+        $('#main').on('click','#download-csv', function() {
+            download($.csv.fromObjects(stories, {sortOrder: 'alpha'}), project_name + '.csv');
+        });
     }
 
     function getStarted() {
