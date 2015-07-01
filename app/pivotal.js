@@ -239,7 +239,7 @@ define(function(require) {
                 type: "GET",
                 data: {
                     project_id: project_id,
-                    query: search_str
+                    query: search_str +' includedone:true'
                 }
             }).done(function(result) {
                 result = result.stories.stories;
