@@ -138,7 +138,7 @@ define(function(require) {
     		for (var k=0; k < lines.length; k++) {
     			var matches = lines[k].match(/^\^(.+)[\:=](.+)$/);
     			if (matches) {
-    				result[i][matches[1].trim().toLowerCase()] = matches[2].trim();
+    				result[i][matches[1].trim().toLowerCase()] = matches[2].replace(/#.*/,"").trim();
     			}
     		}
 
