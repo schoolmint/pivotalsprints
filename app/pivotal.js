@@ -114,10 +114,10 @@ define(function(require) {
 
     		var labels = _.pluck(result[i].labels, 'name');
 
-            // release-.. and sprint-.. are special labels, used to mark the associated sprint
+            // key=value are special labels, will be available as columns
     		for (var k=0; k<labels.length; k++) {
-    			if (match = labels[k].match(/^(release|sprint)[- ]?([^\s-]+)/i)) {
-    				result[i][match[1].toLowerCase()] = match[2];
+    			if (match = labels[k].match(/^([^=]+)=(.+)$/i)) {
+    				result[i][match[1].toLowerCase().trim()] = match[2].trim();
     			}
     		}
 
